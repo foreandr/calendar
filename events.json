@@ -5,24 +5,283 @@
             "event": "Valentine's Day"
         },
         {
-            "timestamp": "2025-02-14 00:00:00",
-            "event": "Birthday Party"
+            "timestamp": "2025-01-22 00:00:00",
+            "event": "Quiz 1 (MATH-1120H-A)-------------------"
         },
         {
-            "timestamp": "2025-02-25 00:00:00",
-            "event": "Special Event"
+            "timestamp": "2025-01-29 00:00:00",
+            "event": "Quiz 2 (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-02-05 00:00:00",
+            "event": "Quiz 3 (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-02-12 00:00:00",
+            "event": "Quiz 4 (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-03-19 00:00:00",
+            "event": "Quiz 5 (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-03-26 00:00:00",
+            "event": "Quiz 6 (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-02-12 23:59:59",
+            "event": "Assignment 1 Due (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-03-26 23:59:59",
+            "event": "Assignment 2 Due (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-02-24 00:00:00",
+            "event": "Midterm Exam (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-04-18 00:00:00",
+            "event": "Final Exam (MATH-1120H-A)"
+        },
+        {
+            "timestamp": "2025-01-15 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-01-22 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-01-29 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-02-05 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-02-12 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-02-26 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-03-05 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-03-12 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-03-19 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-03-26 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-04-02 23:59:59",
+            "event": "MyLab Assignment Due (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-04-04 23:59:59",
+            "event": "Final Deadline for MyLab Assignments (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-01-23 00:00:00",
+            "event": "In-Class Assignment 1 (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-02-06 00:00:00",
+            "event": "In-Class Assignment 2 (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-03-13 00:00:00",
+            "event": "In-Class Assignment 3 (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-03-27 00:00:00",
+            "event": "In-Class Assignment 4 (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-02-13 00:00:00",
+            "event": "Midterm Exam (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-04-18 00:00:00",
+            "event": "Final Exam (ECON-1250H-A)"
+        },
+        {
+            "timestamp": "2025-01-17 23:59:59",
+            "event": "Assignment 1 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-01-24 23:59:59",
+            "event": "Assignment 2 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-01-31 23:59:59",
+            "event": "Assignment 3 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-02-07 23:59:59",
+            "event": "Assignment 4 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-02-14 23:59:59",
+            "event": "Assignment 5 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-02-28 23:59:59",
+            "event": "Assignment 6 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-03-07 23:59:59",
+            "event": "Assignment 7 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-03-14 23:59:59",
+            "event": "Assignment 8 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-03-21 23:59:59",
+            "event": "Assignment 9 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-03-28 23:59:59",
+            "event": "Assignment 10 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-04-04 23:59:59",
+            "event": "Assignment 11 Due (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-03-07 23:59:59",
+            "event": "Final Withdrawal Date (MATH-2260H)"
+        },
+        {
+            "timestamp": "2025-04-17 23:59:59",
+            "event": "Take-Home Final Exam Due (MATH-2260H)"
+        },        {
+            "timestamp": "2025-01-27 23:59:59",
+            "event": "Assignment 1 Due (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-02-24 23:59:59",
+            "event": "Assignment 2 Due (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-03-10 23:59:59",
+            "event": "Assignment 3 Due (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-03-31 23:59:59",
+            "event": "Assignment 4 Due (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-02-03 00:00:00",
+            "event": "Term Test 1 (MATH-2350H)"
         },
         {
             "timestamp": "2025-03-17 00:00:00",
-            "event": "St. Patrick's Day"
+            "event": "Term Test 2 (MATH-2350H)"
         },
         {
-            "timestamp": "2025-12-31 00:00:00",
-            "event": "New Year's Eve"
+            "timestamp": "2025-01-13 00:00:00",
+            "event": "Quiz 1 (MATH-2350H)"
         },
         {
-            "timestamp": "2025-01-06 00:00:00",
-            "event": "test evnet"
+            "timestamp": "2025-01-20 00:00:00",
+            "event": "Quiz 2 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-01-27 00:00:00",
+            "event": "Quiz 3 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-02-10 00:00:00",
+            "event": "Quiz 4 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-02-24 00:00:00",
+            "event": "Quiz 5 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-03-03 00:00:00",
+            "event": "Quiz 6 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-03-24 00:00:00",
+            "event": "Quiz 7 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-03-31 00:00:00",
+            "event": "Quiz 8 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-04-07 00:00:00",
+            "event": "Quiz 9 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-04-14 00:00:00",
+            "event": "Quiz 10 (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-04-18 00:00:00",
+            "event": "Final Exam (MATH-2350H)"
+        },
+        {
+            "timestamp": "2025-01-17 23:59:59",
+            "event": "Mini-Assignment 1 Due (Probability)"
+        },
+        {
+            "timestamp": "2025-01-24 23:59:59",
+            "event": "Mini-Assignment 2 Due (Probability)"
+        },
+        {
+            "timestamp": "2025-02-07 23:59:59",
+            "event": "Mini-Assignment 3 Due (Probability)"
+        },
+        {
+            "timestamp": "2025-02-14 23:59:59",
+            "event": "Mini-Assignment 4 Due (Probability)"
+        },
+        {
+            "timestamp": "2025-03-14 23:59:59",
+            "event": "Mini-Assignment 5 Due (Probability)"
+        },
+        {
+            "timestamp": "2025-03-21 23:59:59",
+            "event": "Mini-Assignment 6 Due (Probability)"
+        },
+        {
+            "timestamp": "2025-03-28 23:59:59",
+            "event": "Mini-Assignment 7 Due (Probability)"
+        },
+        {
+            "timestamp": "2025-04-04 23:59:59",
+            "event": "Mini-Assignment 8 Due (Probability)"
+        },
+        {
+            "timestamp": "2025-01-27 14:00:00",
+            "event": "Test 1 (Probability)"
+        },
+        {
+            "timestamp": "2025-03-03 14:00:00",
+            "event": "Test 2 (Probability)"
+        },
+        {
+            "timestamp": "2025-03-24 14:00:00",
+            "event": "Test 3 (Probability)"
+        },
+        {
+            "timestamp": "2025-04-18 09:00:00",
+            "event": "Final Exam (Probability)"
         }
     ]
 }

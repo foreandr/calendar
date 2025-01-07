@@ -43,6 +43,23 @@ def create_output_folders(base_folder, width, height):
     return ratio_folder
 
 
+def wrap_text(text, font, max_width):
+    """Wrap text into multiple lines to fit within the specified width."""
+    words = text.split()
+    lines = []
+    current_line = words[0]
+
+    for word in words[1:]:
+        test_line = f"{current_line} {word}"
+        width = font.getbbox(test_line)[2]  # Use getbbox for width measurement
+        if width <= max_width:
+            current_line = test_line
+        else:
+            lines.append(current_line)
+            current_line = word
+    lines.append(current_line)
+    return lines
+
 def draw_calendar_image(draw, width, height, year, month, event_map):
     """Draw the calendar on the given image."""
     font = ImageFont.truetype("arial.ttf", 20)
@@ -88,9 +105,14 @@ def draw_calendar_image(draw, width, height, year, month, event_map):
             # Check for events in the event map
             if (day, month, year) in event_map:
                 event_list = event_map[(day, month, year)]
-                for i, event_text in enumerate(event_list):
-                    # Stack events vertically, showing only the event title
-                    draw.text((x, y + 20 + i * 20), event_text, fill="blue", font=event_font)
+                event_y = y + 20  # Start below the day number
+                for event_text in event_list:
+                    # Wrap text to fit within the cell width
+                    wrapped_text = wrap_text(event_text, event_font, cell_width - 20)
+                    for line in wrapped_text:
+                        draw.text((x, event_y), line, fill="blue", font=event_font)
+                        event_y += 20  # Add spacing between lines
+                    event_y += 10  # Add extra spacing between events
 
             day += 1
 
@@ -124,4 +146,4 @@ if __name__ == "__main__":
     json_file = "events.json"
 
     # Generate calendar for February 2025
-    generate_calendar_image_with_events(2025, 2, json_file)
+    generate_calendar_image_with_events(2025, 1, json_file)
