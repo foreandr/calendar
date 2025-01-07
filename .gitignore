@@ -84,6 +84,7 @@ notes/
 
 # Miscellaneous
 downloader/
+calendars/
 site_specific/__pycache__/
 crawlers_raw/__pycache__/
 crawlers_rss/__pycache__/
