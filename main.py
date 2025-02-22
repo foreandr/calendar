@@ -59,32 +59,6 @@ def wrap_text(text, font, max_width):
     return lines
 
 
-def generate_event_details_image(day, month, year, event_list, output_folder="calendars"):
-    """Generate a separate image listing all events for a specific day."""
-    width, height = 600, 800  # Fixed size for detailed event view
-    image = Image.new("RGB", (width, height), "white")
-    draw = ImageDraw.Draw(image)
-    font = ImageFont.truetype("arial.ttf", 24)
-    event_font = ImageFont.truetype("arial.ttf", 18)
-
-    # Title
-    title_text = f"Events for {month_name[month]} {day}, {year}"
-    draw.text((20, 20), title_text, fill="black", font=font)
-
-    # Draw events
-    y_position = 70
-    for event in event_list:
-        wrapped_lines = wrap_text(event, event_font, width - 40)
-        for line in wrapped_lines:
-            draw.text((20, y_position), line, fill="blue", font=event_font)
-            y_position += 30
-
-    # Save detailed event image
-    output_path = os.path.join(output_folder, f"detailed_events_{month_name[month].lower()}_{day}_{year}.png")
-    image.save(output_path)
-    print(f"[DEBUG] Saved detailed event list: {output_path}")
-
-
 def draw_calendar_image(draw, width, height, year, month, event_map):
     """
     Draw the calendar on the given image with highlighting for the current day.
@@ -103,9 +77,10 @@ def draw_calendar_image(draw, width, height, year, month, event_map):
     title_width = title_bbox[2] - title_bbox[0]
     draw.text(((width - title_width) / 2, 20), title_text, fill="black", font=title_font)
 
-    # Draw days of the week header
-    days = [day_name[i][:3] for i in range(7)]
-    cell_width = width // 7
+    # Modify days of the week to start with Sunday
+    days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    cell_width = width // 8  # Extra column for NOTES section
+
     for i, day in enumerate(days):
         day_bbox = draw.textbbox((0, 0), day, font=font)
         day_width = day_bbox[2] - day_bbox[0]
@@ -115,6 +90,7 @@ def draw_calendar_image(draw, width, height, year, month, event_map):
     # Get days in the month
     _, num_days = monthrange(year, month)
     first_day_of_month = monthrange(year, month)[0]
+    first_day_of_month = (first_day_of_month + 1) % 7  # Adjust so Sunday is first
 
     # Define the highlight color and text color
     highlight_color = (220, 220, 220)  # Light gray for highlighting
@@ -124,6 +100,7 @@ def draw_calendar_image(draw, width, height, year, month, event_map):
     y_offset = 120
     cell_height = (height - y_offset) // 6
     day = 1
+
     for row in range(6):
         for col in range(7):
             if row == 0 and col < first_day_of_month:
@@ -167,10 +144,40 @@ def draw_calendar_image(draw, width, height, year, month, event_map):
 
                 if num_events > 6:
                     draw.text((x + 10, event_y), "...", fill="gray", font=event_font)
-                    generate_event_details_image(day, month, year, event_list)
 
             day += 1
 
+    # Draw NOTES section on the far-right
+    notes_x = 7 * cell_width + 20
+    draw.text((notes_x, 80), "NOTES", fill="black", font=title_font)
+
+    note_y = 120
+    notes_width = width - notes_x - 20  # Ensure wrapping stays inside the right margin
+
+    for note in load_notes(json_file="notes.json"):
+        wrapped_lines = wrap_text(note, event_font, notes_width)  # Wrap text properly
+
+        # First line gets a bullet point
+        draw.text((notes_x, note_y), f"- {wrapped_lines[0]}", fill="black", font=event_font)
+        note_y += 25  # Move down for the first line
+
+        # Remaining lines do NOT get a bullet point
+        for line in wrapped_lines[1:]:
+            draw.text((notes_x + 15, note_y), line, fill="black", font=event_font)
+            note_y += 25  # Move down for each wrapped line
+
+
+def load_notes(json_file="notes.json"):
+    """Load notes from a JSON file, handling empty or corrupted files."""
+    if os.path.exists(json_file):
+        try:
+            with open(json_file, "r") as f:
+                data = json.load(f)
+                return data.get("notes", [])  # Return the notes list
+        except (json.JSONDecodeError, ValueError):
+            print(f"[WARNING] {json_file} is empty or corrupted. Resetting file.")
+            return []  # Return empty list if JSON is corrupted
+    return []  # Return empty list if file does not exist
 
 def generate_calendar_image_with_events(year, month, json_file, output_folder="calendars"):
     """Generate calendar images for specified aspect ratios."""

@@ -6,6 +6,7 @@ import os
 from datetime import datetime
 
 
+### EVENT MANAGER ###
 class EventManager:
     def __init__(self, json_file):
         self.json_file = json_file
@@ -14,11 +15,17 @@ class EventManager:
     def load_events(self):
         """Load events from the JSON file."""
         if os.path.exists(self.json_file):
-            with open(self.json_file, "r") as f:
-                data = json.load(f)
-                self.events = data.get("events", [])
+            try:
+                with open(self.json_file, "r") as f:
+                    data = json.load(f)
+                    self.events = data.get("events", [])
+            except json.JSONDecodeError:
+                print(f"[WARNING] {self.json_file} was corrupted. Resetting file.")
+                self.events = []
+                self.save_events()
         else:
             self.events = []
+            self.save_events()
 
     def save_events(self):
         """Save events to the JSON file."""
@@ -27,14 +34,11 @@ class EventManager:
 
     def add_event(self, timestamp, event_text):
         """Add a new event."""
-        try:
-            # Validate timestamp
-            datetime.strptime(timestamp, "%Y-%m-%d %H:%M:%S")
-            new_event = {"timestamp": timestamp, "event": event_text}
-            self.events.append(new_event)
-            self.save_events()
-        except ValueError:
-            raise ValueError("Timestamp must be in the format 'YYYY-MM-DD HH:MM:SS'.")
+        if not event_text.strip():
+            raise ValueError("Event text cannot be empty!")
+        new_event = {"timestamp": timestamp, "event": event_text}
+        self.events.append(new_event)
+        self.save_events()
 
     def search_events(self, event_string=None):
         """Search for events containing the event string."""
@@ -49,121 +53,157 @@ class EventManager:
         self.save_events()
 
 
+### NOTES MANAGER ###
+class NotesManager:
+    def __init__(self, json_file):
+        self.json_file = json_file
+        self.load_notes()
+
+    def load_notes(self):
+        """Load notes from the JSON file, handling empty or corrupted files."""
+        if os.path.exists(self.json_file):
+            try:
+                with open(self.json_file, "r") as f:
+                    data = json.load(f)
+                    self.notes = data.get("notes", [])
+            except (json.JSONDecodeError, ValueError):
+                print(f"[WARNING] {self.json_file} is empty or corrupted. Resetting file.")
+                self.notes = []
+                self.save_notes()
+        else:
+            self.notes = []
+            self.save_notes()
+
+    def save_notes(self):
+        """Save notes to the JSON file."""
+        with open(self.json_file, "w") as f:
+            json.dump({"notes": self.notes}, f, indent=4)
+
+    def add_note(self, note_text):
+        """Add a new note."""
+        if not note_text.strip():
+            raise ValueError("Note cannot be empty!")
+        self.notes.append(note_text)
+        self.save_notes()
+
+    def search_notes(self, search_string=None):
+        """Search for notes containing a keyword."""
+        return [
+            note for note in self.notes
+            if search_string is None or search_string.lower() in note.lower()
+        ]
+
+    def delete_note(self, note_to_delete):
+        """Delete a note."""
+        self.notes = [note for note in self.notes if note != note_to_delete]
+        self.save_notes()
+
+
+### GUI CLASS ###
 class EventGUI:
-    def __init__(self, root, manager):
-        self.manager = manager
+    def __init__(self, root, event_manager, notes_manager):
+        self.event_manager = event_manager
+        self.notes_manager = notes_manager
 
-        # Main window setup
-        root.title("Event Manager")
-        root.state("zoomed")  # Open in fullscreen mode
+        root.title("Event & Notes Manager")
+        root.state("zoomed")  # Fullscreen mode
 
-        # Add event section
-        self.add_frame = tk.LabelFrame(root, text="Add Event", padx=10, pady=10)
-        self.add_frame.pack(fill="both", padx=10, pady=5)
+        ### EVENT SECTION ###
+        self.add_event_frame = tk.LabelFrame(root, text="Add Event", padx=10, pady=10)
+        self.add_event_frame.pack(fill="both", padx=10, pady=5)
 
-        # Date Picker
-        self.date_label = tk.Label(self.add_frame, text="Date:")
+        self.date_label = tk.Label(self.add_event_frame, text="Date:")
         self.date_label.grid(row=0, column=0, sticky="w")
-        self.date_picker = DateEntry(self.add_frame, width=12, background="darkblue", foreground="white", borderwidth=2)
+        self.date_picker = DateEntry(self.add_event_frame, width=12)
         self.date_picker.grid(row=0, column=1, sticky="w")
 
-        # Time Selector
-        self.time_label = tk.Label(self.add_frame, text="Time:")
-        self.time_label.grid(row=0, column=2, sticky="w")
-
-        self.hour_var = tk.StringVar()
-        self.minute_var = tk.StringVar()
-        self.second_var = tk.StringVar()
-
-        self.hour_dropdown = ttk.Combobox(self.add_frame, textvariable=self.hour_var, width=5, values=[f"{i:02}" for i in range(24)])
-        self.hour_dropdown.grid(row=0, column=3, sticky="w")
-        self.hour_dropdown.set("00")
-
-        self.minute_dropdown = ttk.Combobox(self.add_frame, textvariable=self.minute_var, width=5, values=[f"{i:02}" for i in range(60)])
-        self.minute_dropdown.grid(row=0, column=4, sticky="w")
-        self.minute_dropdown.set("00")
-
-        self.second_dropdown = ttk.Combobox(self.add_frame, textvariable=self.second_var, width=5, values=[f"{i:02}" for i in range(60)])
-        self.second_dropdown.grid(row=0, column=5, sticky="w")
-        self.second_dropdown.set("00")
-
-        # Event Title Entry
-        self.event_label = tk.Label(self.add_frame, text="Event Title:")
+        self.event_label = tk.Label(self.add_event_frame, text="Event Title:")
         self.event_label.grid(row=1, column=0, sticky="w")
-        self.event_entry = tk.Entry(self.add_frame, width=40)
+        self.event_entry = tk.Entry(self.add_event_frame, width=40)
         self.event_entry.grid(row=1, column=1, columnspan=5, sticky="w")
 
-        self.add_button = tk.Button(self.add_frame, text="Add Event", command=self.add_event)
-        self.add_button.grid(row=2, column=0, columnspan=6, pady=5)
+        self.add_event_button = tk.Button(self.add_event_frame, text="Add Event", command=self.add_event)
+        self.add_event_button.grid(row=2, column=0, columnspan=6, pady=5)
 
-        # Search event section
-        self.search_frame = tk.LabelFrame(root, text="Search Events", padx=10, pady=10)
-        self.search_frame.pack(fill="both", padx=10, pady=5)
+        self.event_listbox = tk.Listbox(root, width=80, height=10)
+        self.event_listbox.pack(padx=10, pady=5)
+        self.event_listbox.bind("<Delete>", self.delete_event)
 
-        self.search_string_label = tk.Label(self.search_frame, text="Search for Event Title:")
-        self.search_string_label.grid(row=0, column=0, sticky="w")
-        self.search_string_entry = tk.Entry(self.search_frame, width=30)
-        self.search_string_entry.grid(row=0, column=1, sticky="w")
+        self.delete_event_button = tk.Button(root, text="Delete Selected Event", command=self.delete_event)
+        self.delete_event_button.pack(pady=5)
 
-        self.search_button = tk.Button(self.search_frame, text="Search Events", command=self.search_events)
-        self.search_button.grid(row=0, column=2, padx=10)
+        ### NOTES SECTION ###
+        self.notes_frame = tk.LabelFrame(root, text="Manage Notes", padx=10, pady=10)
+        self.notes_frame.pack(fill="both", padx=10, pady=5)
 
-        self.result_box = tk.Listbox(self.search_frame, width=80, height=10)
-        self.result_box.grid(row=1, column=0, columnspan=3, pady=5)
-        self.result_box.bind("<Delete>", self.delete_event)
+        self.note_entry = tk.Entry(self.notes_frame, width=50)
+        self.note_entry.grid(row=0, column=0, padx=10)
 
-        self.delete_button = tk.Button(self.search_frame, text="Delete Selected Event", command=self.delete_event)
-        self.delete_button.grid(row=2, column=0, columnspan=3, pady=5)
+        self.add_note_button = tk.Button(self.notes_frame, text="Add Note", command=self.add_note)
+        self.add_note_button.grid(row=0, column=1)
+
+        self.search_notes_entry = tk.Entry(self.notes_frame, width=30)
+        self.search_notes_entry.grid(row=1, column=0, padx=10)
+
+        self.search_notes_button = tk.Button(self.notes_frame, text="Search Notes", command=self.search_notes)
+        self.search_notes_button.grid(row=1, column=1)
+
+        self.notes_listbox = tk.Listbox(self.notes_frame, width=80, height=10)
+        self.notes_listbox.grid(row=2, column=0, columnspan=2, pady=5)
+        self.notes_listbox.bind("<Delete>", self.delete_note)
+
+        self.delete_note_button = tk.Button(self.notes_frame, text="Delete Selected Note", command=self.delete_note)
+        self.delete_note_button.grid(row=3, column=0, columnspan=2, pady=5)
 
     def add_event(self):
-        """Add an event using input from the GUI."""
-        try:
-            selected_date = self.date_picker.get_date().strftime("%Y-%m-%d")
-            selected_time = f"{self.hour_var.get()}:{self.minute_var.get()}:{self.second_var.get()}"
-            timestamp = f"{selected_date} {selected_time}"
-            event_text = self.event_entry.get()
+        """Add an event."""
+        selected_date = self.date_picker.get_date().strftime("%Y-%m-%d")
+        event_text = self.event_entry.get()
 
-            if not event_text:
-                raise ValueError("Event text cannot be empty!")
+        if not event_text:
+            messagebox.showerror("Error", "Event title cannot be empty.")
+            return
 
-            self.manager.add_event(timestamp, event_text)
-            messagebox.showinfo("Success", "Event added successfully!")
-            self.event_entry.delete(0, tk.END)
-        except ValueError as e:
-            messagebox.showerror("Error", f"Invalid input: {e}")
-
-    def search_events(self):
-        """Search for events based on input and display them."""
-        try:
-            event_string = self.search_string_entry.get() if self.search_string_entry.get() else None
-            results = self.manager.search_events(event_string)
-            self.result_box.delete(0, tk.END)  # Clear previous results
-
-            for event in results:
-                self.result_box.insert(tk.END, f"{event['timestamp']} - {event['event']}")
-        except ValueError as e:
-            messagebox.showerror("Error", f"Invalid input: {e}")
+        self.event_manager.add_event(selected_date, event_text)
+        self.event_listbox.insert(tk.END, f"{selected_date} - {event_text}")
 
     def delete_event(self, event=None):
-        """Delete the selected event from the listbox and JSON file."""
-        selection = self.result_box.curselection()
-        if not selection:
-            return  # No popup on failure either
+        """Delete selected event."""
+        selection = self.event_listbox.curselection()
+        if selection:
+            event_text = self.event_listbox.get(selection[0])
+            self.event_manager.delete_event(event_text)
+            self.event_listbox.delete(selection[0])
 
-        selected_event = self.result_box.get(selection[0])
-        timestamp, event_text = selected_event.split(" - ", 1)
+    def add_note(self):
+        """Add a note."""
+        note_text = self.note_entry.get()
+        if not note_text.strip():
+            messagebox.showerror("Error", "Note cannot be empty.")
+            return
 
-        for event in self.manager.events:
-            if event["timestamp"] == timestamp and event["event"] == event_text:
-                self.manager.delete_event(event)
-                self.result_box.delete(selection[0])  # Just delete it, no confirmation popup
-                break
+        self.notes_manager.add_note(note_text)
+        self.notes_listbox.insert(tk.END, note_text)
+        self.note_entry.delete(0, tk.END)
+
+    def search_notes(self):
+        """Search for notes."""
+        search_text = self.search_notes_entry.get()
+        results = self.notes_manager.search_notes(search_text)
+        self.notes_listbox.delete(0, tk.END)
+        for note in results:
+            self.notes_listbox.insert(tk.END, note)
+
+    def delete_note(self, event=None):
+        """Delete selected note."""
+        selection = self.notes_listbox.curselection()
+        if selection:
+            note_text = self.notes_listbox.get(selection[0])
+            self.notes_manager.delete_note(note_text)
+            self.notes_listbox.delete(selection[0])
 
 
 if __name__ == "__main__":
-    json_file = "events.json"
-    manager = EventManager(json_file)
-
     root = tk.Tk()
-    app = EventGUI(root, manager)
+    app = EventGUI(root, EventManager("events.json"), NotesManager("notes.json"))
     root.mainloop()

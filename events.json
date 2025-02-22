@@ -33,14 +33,6 @@
             "event": "Assignment 1 Due (MATH-1120H-A)"
         },
         {
-            "timestamp": "2025-03-26 23:59:59",
-            "event": "Assignment 2 Due (MATH-1120H-A)"
-        },
-        {
-            "timestamp": "2025-02-24 00:00:00",
-            "event": "Midterm Exam (MATH-1120H-A)"
-        },
-        {
             "timestamp": "2025-04-18 00:00:00",
             "event": "Final Exam (MATH-1120H-A)"
         },
@@ -265,7 +257,7 @@
             "event": "geometry talk assignment due"
         },
         {
-            "timestamp": "2025-02-22 00:00:00",
+            "timestamp": "2025-02-23 00:00:00",
             "event": "calc 2 assignment 1"
         },
         {
@@ -277,7 +269,7 @@
             "event": "geometry assignment t"
         },
         {
-            "timestamp": "2025-02-24 00:00:00",
+            "timestamp": "2025-02-28 00:00:00",
             "event": "linalg2 assignment 2"
         },
         {
