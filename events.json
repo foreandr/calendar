@@ -167,7 +167,8 @@
         {
             "timestamp": "2025-04-17 23:59:59",
             "event": "Take-Home Final Exam Due (MATH-2260H)"
-        },        {
+        },
+        {
             "timestamp": "2025-01-27 23:59:59",
             "event": "Assignment 1 Due (MATH-2350H)"
         },
@@ -236,52 +237,52 @@
             "event": "Final Exam (MATH-2350H)"
         },
         {
-            "timestamp": "2025-01-17 23:59:59",
-            "event": "Mini-Assignment 1 Due (Probability)"
+            "timestamp": "2025-02-10 00:00:00",
+            "event": "Assignment Extra Geometry"
         },
         {
-            "timestamp": "2025-01-24 23:59:59",
-            "event": "Mini-Assignment 2 Due (Probability)"
+            "timestamp": "2025-02-07 00:00:00",
+            "event": "Assignment 4"
         },
         {
-            "timestamp": "2025-02-07 23:59:59",
-            "event": "Mini-Assignment 3 Due (Probability)"
+            "timestamp": "2025-05-25 00:00:00",
+            "event": "Mom's Birthday"
         },
         {
-            "timestamp": "2025-02-14 23:59:59",
-            "event": "Mini-Assignment 4 Due (Probability)"
+            "timestamp": "2025-06-13 00:00:00",
+            "event": "Ashley's Birthday"
         },
         {
-            "timestamp": "2025-03-14 23:59:59",
-            "event": "Mini-Assignment 5 Due (Probability)"
+            "timestamp": "2025-03-06 00:00:00",
+            "event": "Alec's Banger"
         },
         {
-            "timestamp": "2025-03-21 23:59:59",
-            "event": "Mini-Assignment 6 Due (Probability)"
+            "timestamp": "2025-02-06 00:00:00",
+            "event": "geometry talk 4pm "
         },
         {
-            "timestamp": "2025-03-28 23:59:59",
-            "event": "Mini-Assignment 7 Due (Probability)"
+            "timestamp": "2025-02-10 00:00:00",
+            "event": "geometry talk assignment due"
         },
         {
-            "timestamp": "2025-04-04 23:59:59",
-            "event": "Mini-Assignment 8 Due (Probability)"
+            "timestamp": "2025-02-22 00:00:00",
+            "event": "calc 2 assignment 1"
         },
         {
-            "timestamp": "2025-01-27 14:00:00",
-            "event": "Test 1 (Probability)"
+            "timestamp": "2025-02-26 00:00:00",
+            "event": "CALC EXAM"
         },
         {
-            "timestamp": "2025-03-03 14:00:00",
-            "event": "Test 2 (Probability)"
+            "timestamp": "2025-02-24 00:00:00",
+            "event": "geometry assignment t"
         },
         {
-            "timestamp": "2025-03-24 14:00:00",
-            "event": "Test 3 (Probability)"
+            "timestamp": "2025-02-24 00:00:00",
+            "event": "linalg2 assignment 2"
         },
         {
-            "timestamp": "2025-04-18 09:00:00",
-            "event": "Final Exam (Probability)"
+            "timestamp": "2025-02-27 00:00:00",
+            "event": "econ exam"
         }
     ]
 }

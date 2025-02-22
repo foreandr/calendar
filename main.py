@@ -70,7 +70,7 @@ def draw_calendar_image(draw, width, height, year, month, event_map):
 
     # Get the current date
     current_date = datetime.now()
-    current_date = datetime(2025, 1, 17)  # Hardcoded for testing
+    # current_date = datetime(2025, 1, 17)  # Hardcoded for testing
     current_day = current_date.day if current_date.year == year and current_date.month == month else None
 
     # Draw title (Month and Year)
@@ -126,11 +126,22 @@ def draw_calendar_image(draw, width, height, year, month, event_map):
             # Check for events in the event map
             if (day, month, year) in event_map:
                 event_list = event_map[(day, month, year)]
-                for i, event_text in enumerate(event_list):
+                max_event_display = 4  # Maximum number of events shown before truncating
+                event_spacing = 20  # Vertical spacing between events
+                event_y = y + 30  # Start position for events below the date
+
+                for i, event_text in enumerate(event_list[:max_event_display]):
                     wrapped_lines = wrap_text(event_text, event_font, cell_width - 20)
+
                     for j, line in enumerate(wrapped_lines):
                         text_color = "red" if day == current_day else "blue"
-                        draw.text((x + 10, y + 25 + (i * 25) + (j * 20)), line, fill=text_color, font=event_font)
+                        draw.text((x + 10, event_y), line, fill=text_color, font=event_font)  # Corrected syntax
+                        event_y += event_spacing  # Move down for the next line
+
+                # Add "See more" if there are too many events
+                if len(event_list) > max_event_display:
+                    draw.text((x + 10, event_y), "... See more", fill="gray", font=event_font)
+
 
             day += 1
 
