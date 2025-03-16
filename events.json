@@ -113,10 +113,6 @@
             "event": "Assignment 1 Due (MATH-2260H)"
         },
         {
-            "timestamp": "2025-01-24 23:59:59",
-            "event": "Assignment 2 Due (MATH-2260H)"
-        },
-        {
             "timestamp": "2025-01-31 23:59:59",
             "event": "Assignment 3 Due (MATH-2260H)"
         },
@@ -165,11 +161,7 @@
             "event": "Assignment 1 Due (MATH-2350H)"
         },
         {
-            "timestamp": "2025-02-24 23:59:59",
-            "event": "Assignment 2 Due (MATH-2350H)"
-        },
-        {
-            "timestamp": "2025-03-10 23:59:59",
+            "timestamp": "2025-03-14 23:59:59",
             "event": "Assignment 3 Due (MATH-2350H)"
         },
         {
@@ -275,6 +267,10 @@
         {
             "timestamp": "2025-02-27 00:00:00",
             "event": "econ exam"
+        },
+        {
+            "timestamp": "2025-03-17 00:00:00",
+            "event": "hand in the monday assignment"
         }
     ]
 }
